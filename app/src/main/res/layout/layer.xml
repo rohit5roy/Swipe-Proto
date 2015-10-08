@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:animateLayoutChanges="true">
 
     <ImageView
+        android:background="@color/accent_material_light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/bg"
         android:id="@+id/layerImage" />
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"/>
+</RelativeLayout>
