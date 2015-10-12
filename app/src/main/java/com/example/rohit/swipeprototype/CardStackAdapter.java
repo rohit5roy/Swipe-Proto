@@ -1,8 +1,6 @@
 package com.example.rohit.swipeprototype;
 
 import android.content.Context;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterViewAnimator;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -37,26 +38,38 @@ public class CardStackAdapter extends ArrayAdapter<String> {
         final String item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         final View tmpView = convertView;
+        final ViewHolder holder = new ViewHolder();
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layer, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_item, parent, false);
         }
 
         // Lookup view for data population
-        Animation slideInRight = AnimationUtils.loadAnimation(context, R.anim.slide_in_from_right);
+        final Animation slideInRight = AnimationUtils.loadAnimation(context, R.anim.slide_in_from_right);
+        slideInRight.setDuration(Long.valueOf("500"));
         final Animation slideInLeft = AnimationUtils.loadAnimation(context, R.anim.slide_in_from_left);
+        slideInLeft.setDuration(Long.valueOf("1000"));
         Animation slideOutLeft = AnimationUtils.loadAnimation(context, R.anim.slide_out_from_left);
-        final TextView tv = (TextView) convertView.findViewById(R.id.textView);
-        final ImageView imageView = (ImageView) convertView.findViewById(R.id.layerImage);
+        holder.view = convertView.findViewById(R.id.card);
+        holder.text = (TextView) convertView.findViewById(R.id.post_title);
+        holder.image = (ImageView) convertView.findViewById(R.id.imageView);
+        holder.chat = (Button) convertView.findViewById(R.id.chat);
+        holder.comment = (Button) convertView.findViewById(R.id.comment);
+        holder.timing = (TextView) convertView.findViewById(R.id.timing);
         // Populate the data into the template view using the data object
-        tv.setText(getItem(position));
+        holder.text.setText(getItem(position));
+        holder.chat.setText(String.valueOf("Chat:" + getItem(position)));
+        holder.comment.setText(String.valueOf("Comments:"+ getItem(position)));
 
         if(Integer.valueOf(item)%2 == 0) {
-            imageView.setImageResource(R.drawable.bg);
-            imageView.startAnimation(slideInLeft);
+            holder.image.setImageResource(R.drawable.ic_launcher);
+            holder.timing.setText("Even");
+            holder.view.startAnimation(slideInRight);
         }
         else {
-            imageView.setImageResource(R.drawable.water);
-            imageView.startAnimation(slideInLeft);
+//            holder.image.setImageResource(R.drawable.ic_launcher);
+            holder.image.setImageResource(R.drawable.koove_text_logo);
+            holder.timing.setText("Odd");
+            holder.view.startAnimation(slideInRight);
         }
 
         convertView.setOnTouchListener(new OnSwipeTouchListener(context) {
@@ -64,7 +77,7 @@ public class CardStackAdapter extends ArrayAdapter<String> {
             @Override
             public void onSwipeLeft() {
                 ((AdapterViewAnimator)parent).showNext();
-                
+
 //                if(position +1 < products.size()) {
 ////                    getView(++pos, tmpView, parent);
 //                    tv.setText(getItem(position+1));
@@ -85,7 +98,8 @@ public class CardStackAdapter extends ArrayAdapter<String> {
 
             @Override
             public void onSwipeRight() {
-                ((AdapterViewAnimator)parent).showNext();
+//                holder.view.startAnimation(slideInLeft);
+                ((AdapterViewAnimator)parent).showPrevious();
 //                if(position -1 >0) {
 ////                    getView(--pos, tmpView, parent);
 //                    tv.setText(getItem(position-1));
@@ -107,6 +121,7 @@ public class CardStackAdapter extends ArrayAdapter<String> {
                 Toast.makeText(context, "Swiped towards Top", Toast.LENGTH_SHORT).show();
             }
         });
+        convertView.setTag(holder);
         return convertView;
     }
 
@@ -123,5 +138,14 @@ public class CardStackAdapter extends ArrayAdapter<String> {
     @Override
     public int getCount() {
         return super.getCount();
+    }
+
+    static class ViewHolder {
+        View view;
+        TextView text;
+        ImageView image;
+        Button chat;
+        Button comment;
+        TextView timing;
     }
 }

@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         mainLayer = (FrameLayout)findViewById(R.id.root);
         cardContainer = (CardContainer) findViewById(R.id.stack);
-        String [] arr = {"1","2","3","4"};
+        String [] arr = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14",
+                "15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"};
         stackAdapter = new CardStackAdapter(this,R.layout.layer, Arrays.asList(arr));
 
         cardContainer.setAdapter(stackAdapter);
@@ -105,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
         slideInRight = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_right);
         slideInLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
         slideOutLeft = AnimationUtils.loadAnimation(this, R.anim.slide_out_from_left);
-
-        LayoutInflater inflater = getLayoutInflater();
-        layer1 = inflater.inflate(R.layout.layer, null);
-        ((ImageView) layer1.findViewById(R.id.layerImage)).setImageResource(R.drawable.bg);
-        layer2 = inflater.inflate(R.layout.layer, null);
-        ((ImageView) layer2.findViewById(R.id.layerImage)).setImageResource(R.drawable.water);
-        layer3 = inflater.inflate(R.layout.layer, null);
-        ((ImageView) layer3.findViewById(R.id.layerImage)).setImageResource(R.drawable.android);
+//
+//        LayoutInflater inflater = getLayoutInflater();
+//        layer1 = inflater.inflate(R.layout.layer, null);
+//        ((ImageView) layer1.findViewById(R.id.layerImage)).setImageResource(R.drawable.bg);
+//        layer2 = inflater.inflate(R.layout.layer, null);
+//        ((ImageView) layer2.findViewById(R.id.layerImage)).setImageResource(R.drawable.water);
+//        layer3 = inflater.inflate(R.layout.layer, null);
+//        ((ImageView) layer3.findViewById(R.id.layerImage)).setImageResource(R.drawable.android);
 //        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
 //        mImageView.setLayoutParams(layoutParams);
 //        mImageView.setOnTouchListener(this);
