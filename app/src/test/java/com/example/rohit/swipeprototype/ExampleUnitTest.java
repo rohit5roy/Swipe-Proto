@@ -1,4 +1,4 @@
-package com.example.rohit.swipeprototype;
+package com.koove.swipeprototype;
 
 import org.junit.Test;
 

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.koove.OnSwipeTouchListener;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
