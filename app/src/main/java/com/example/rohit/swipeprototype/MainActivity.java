@@ -1,21 +1,14 @@
 package com.example.rohit.swipeprototype;
 
-import android.animation.LayoutTransition;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.StackView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private int _yDelta;
     private LimitSwipeStackView stackView;
     private CardStackAdapter stackAdapter;
-    private CardContainer cardContainer;
+    private com.koove.CardContainer cardContainer;
 
     FrameLayout mainLayer;
     View layer1, layer2, layer3;
@@ -43,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 //        mImageView = (ImageView) findViewById(R.id.imageView2);
 
         mainLayer = (FrameLayout)findViewById(R.id.root);
-        cardContainer = (CardContainer) findViewById(R.id.stack);
+        cardContainer = (com.koove.CardContainer) findViewById(R.id.stack);
         String [] arr = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14",
                 "15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"};
         stackAdapter = new CardStackAdapter(this,R.layout.layer, Arrays.asList(arr));
