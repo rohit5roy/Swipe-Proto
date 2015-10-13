@@ -1,6 +1,7 @@
 package com.koove;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +33,16 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         }
 
         @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            Log.e("***", "on scroll called");
+            return false;
+//            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+        @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Log.e("***", "on fling called");
+
             boolean result = false;
             try {
                 float diffY = e2.getY() - e1.getY();
@@ -63,15 +73,25 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         }
     }
 
-    public void onSwipeRight() {
+    public void onSwipeRight(){
+
     }
 
     public void onSwipeLeft() {
+
     }
 
-    public void onSwipeTop() {
+    public  void onSwipeTop() {
+
     }
 
-    public void onSwipeBottom() {
+
+    public  void onSwipeBottom() {
+
+    }
+
+
+    public GestureDetector getGestureDetector(){
+        return  gestureDetector;
     }
 }

@@ -10,7 +10,7 @@ import com.example.rohit.swipeprototype.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends Activity implements CardContainer.GetMoreData {
+public class MainActivity extends Activity {
 //        implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     private static final String TAG = "SwipeProto";
@@ -34,14 +34,14 @@ public class MainActivity extends Activity implements CardContainer.GetMoreData 
 
     }
 
-    @Override
+   /* @Override
     public void getData() {
         String [] arr = {"1","2","3","4"};;
         stackAdapter = (CardStackAdapter) cardContainer.getAdapter();
         stackAdapter.addAll(new ArrayList<>(Arrays.asList(arr)));
         stackAdapter.notifyDataSetChanged();
 
-    }
+    }*/
 
 
 

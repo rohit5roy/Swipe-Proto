@@ -13,10 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.koove.OnSwipeTouchListener;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -27,6 +23,8 @@ public class CardStackAdapter extends ArrayAdapter<String> {
     private Context context;
     private int resourceId;
     private List<String> products;
+    ViewGroup parentViewGroup;
+
     public CardStackAdapter(Context context, int resource, List<String> products) {
         super(context, resource, products);
         this.context = context;
@@ -44,6 +42,7 @@ public class CardStackAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_item, parent, false);
         }
+        parentViewGroup = parent;
 
         // Lookup view for data population
         final Animation slideInRight = AnimationUtils.loadAnimation(context, R.anim.slide_in_from_right);
@@ -60,7 +59,7 @@ public class CardStackAdapter extends ArrayAdapter<String> {
         // Populate the data into the template view using the data object
         holder.text.setText(getItem(position));
         holder.chat.setText(String.valueOf("Chat:" + getItem(position)));
-        holder.comment.setText(String.valueOf("Comments:"+ getItem(position)));
+        holder.comment.setText(String.valueOf("Comments:" + getItem(position)));
 
         if(Integer.valueOf(item)%2 == 0) {
             holder.image.setImageResource(R.drawable.ic_launcher);
@@ -74,57 +73,52 @@ public class CardStackAdapter extends ArrayAdapter<String> {
             holder.view.startAnimation(slideInRight);
         }
 
-        convertView.setOnTouchListener(new OnSwipeTouchListener(context) {
-            int pos = position;
-            @Override
-            public void onSwipeLeft() {
-                ((AdapterViewAnimator)parent).showNext();
+        int pos = position;
 
-//                if(position +1 < products.size()) {
-////                    getView(++pos, tmpView, parent);
-//                    tv.setText(getItem(position+1));
-//                    if(Integer.valueOf(getItem(position+1))%2 == 0) {
-//                        imageView.setImageResource(R.drawable.bg);
-//                        imageView.startAnimation(slideInLeft);
-//                    }
-//                    else {
-//                        imageView.setImageResource(R.drawable.water);
-//                        imageView.startAnimation(slideInLeft);
-//                    }
-//                    // Return the completed view to render on screen
-//
-//                }
-//                else
-//                    Log.e("CardStackAdapter", "Maximum size limit");
-            }
+        convertView.setOnTouchListener(((MainActivity) context).getSwipeOnTouchListener());
 
-            @Override
-            public void onSwipeRight() {
-//                holder.view.startAnimation(slideInLeft);
-                ((AdapterViewAnimator)parent).showPrevious();
-//                if(position -1 >0) {
-////                    getView(--pos, tmpView, parent);
-//                    tv.setText(getItem(position-1));
-//                    if(Integer.valueOf(getItem(position-1))%2 == 0) {
-//                        imageView.setImageResource(R.drawable.bg);
-//                        imageView.startAnimation(slideInLeft);
-//                    }
-//                    else {
-//                        imageView.setImageResource(R.drawable.water);
-//                        imageView.startAnimation(slideInLeft);
-//                    }
-//                }
-//                else
-//                    Log.e("CardStackAdapter", "Minimum size limit");
-            }
+        /**
+         * new OnSwipeTouchListener(context) {
+         int pos = position;
 
-            @Override
-            public void onSwipeTop() {
-                Toast.makeText(context, "Swiped towards Top", Toast.LENGTH_SHORT).show();
-            }
-        });
+         @Override
+         public void onSwipeLeft() {
+         ((AdapterViewAnimator) parent).showNext();
+         }
+
+         @Override
+         public void onSwipeRight() {
+         ((AdapterViewAnimator) parent).showPrevious();
+         }
+
+         @Override
+         public void onSwipeTop() {
+         Toast.makeText(context, "Swiped towards Top", Toast.LENGTH_SHORT).show();
+         }
+
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+         MainActivity activity = (MainActivity) context;
+         activity.dispatchTouchEvent(event, getGestureDetector());
+         return getGestureDetector().onTouchEvent(event);
+         }
+         }
+         */
         convertView.setTag(holder);
         return convertView;
+    }
+
+
+    public void onSwipeLeft() {
+        ((AdapterViewAnimator) parentViewGroup).showNext();
+    }
+
+    public void onSwipeRight() {
+        ((AdapterViewAnimator) parentViewGroup).showPrevious();
+    }
+
+    public void onSwipeTop() {
+        Toast.makeText(context, "Swiped towards Top", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -150,4 +144,5 @@ public class CardStackAdapter extends ArrayAdapter<String> {
         Button comment;
         TextView timing;
     }
+
 }
